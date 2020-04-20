@@ -1,5 +1,6 @@
 package com.websocket;
 
+import android.app.Activity;
 import android.util.Log;
 
 import org.java_websocket.WebSocket;
@@ -16,6 +17,7 @@ public class ServerManager {
     private ServerSocket serverSocket=null;
     private Map<WebSocket, String> userMap=new HashMap<WebSocket, String>();
     Mylistener listener;
+    Activity activity;
 
     public ServerManager(){
 
@@ -67,8 +69,9 @@ public class ServerManager {
         }
     }
 
-    public boolean Start(int port){
+    public boolean Start(int port,Activity activity){
 
+        this.activity=activity;
         if (port<0) {
             Log.i("TAG","Port error...");
             return false;

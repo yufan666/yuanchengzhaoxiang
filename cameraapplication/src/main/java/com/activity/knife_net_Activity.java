@@ -68,14 +68,14 @@ public class knife_net_Activity extends Activity {
             nameEx.setText("androidhttp");
             portEx.setText("8088");
             remote_portEx.setText("8088");
-            handler.sendEmptyMessageDelayed(0, 500);
+            handler.sendEmptyMessageDelayed(0, 1000);
             MyApplication.flag=4;
         }
         if(MyApplication.flag==5) {
             nameEx.setText("androidwebsocket");
             portEx.setText("8089");
             remote_portEx.setText("8089");
-            handler.sendEmptyMessageDelayed(0, 500);
+            handler.sendEmptyMessageDelayed(0, 1000);
             MyApplication.flag=6;
         }
     }

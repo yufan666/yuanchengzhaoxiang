@@ -96,7 +96,7 @@ public class knife_net_list extends BaseRecyclerViewSwipeRefreshActivity<SuiDao>
         MyApplication.flag=3;
         handler.sendEmptyMessageDelayed(0, 500);
         final ServerManager serverManager=new ServerManager();
-        serverManager.Start(8089);
+        serverManager.Start(8089,this);
         serverManager.setListener(new ServerManager.Mylistener() {
             @Override
             public void take_photo() {

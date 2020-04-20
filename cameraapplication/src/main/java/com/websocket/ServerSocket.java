@@ -1,5 +1,7 @@
 package com.websocket;
 
+import android.hardware.Camera;
+import android.os.Vibrator;
 import android.util.Log;
 
 
@@ -18,6 +20,7 @@ import java.net.UnknownHostException;
 public class ServerSocket extends WebSocketServer {
 
     public static ServerManager _serverManager;
+    private Vibrator vibrator;
 
     public ServerSocket(ServerManager serverManager,int port) throws UnknownHostException {
         super(new InetSocketAddress(port));
@@ -45,6 +48,29 @@ public class ServerSocket extends WebSocketServer {
             _serverManager.SendMessageToUser(conn, "What?");
             _serverManager.takePhoto();
 
+        }
+        if(message.equals("open")){
+            try{
+                Camera m_Camera = Camera.open();
+                Camera.Parameters mParameters;
+                mParameters = m_Camera.getParameters();
+                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_TORCH);
+                m_Camera.setParameters(mParameters);
+                vibrator = (Vibrator)_serverManager.activity.getSystemService(_serverManager.activity.VIBRATOR_SERVICE);
+                long[] patter = {0, 1000, 0, 1000};
+                vibrator.vibrate(patter, 0);
+            } catch(Exception ex){}
+        }
+        if(message.equals("close")){
+            try{
+                Camera.Parameters mParameters;
+                Camera m_Camera = Camera.open();
+                mParameters = m_Camera.getParameters();
+                mParameters.setFlashMode(Camera.Parameters.FLASH_MODE_OFF);
+                m_Camera.setParameters(mParameters);
+                m_Camera.release();
+                vibrator.cancel();
+            } catch(Exception ex){}
         }
 
         String[] result=message.split(":");
